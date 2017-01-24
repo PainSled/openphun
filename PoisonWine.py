@@ -8,12 +8,6 @@ nMice = math.ceil(math.log(nWine, 2))
 
 badWine = random.randrange(1, nWine, 1)
 
-def testWineBottles(wineBottles):
-    for n in wineBottles:
-        if n == badWine:
-            return True
-    return False
-
 def selectRange(mouseNumber):
     rng = []
     n = 0
@@ -33,7 +27,7 @@ def main():
     estimate = 1 # We started at 1, not 0, when numbering the wine.
     tally = []
     for i in range(0, nMice):
-        dead = testWineBottles(selectRange(i))
+        dead = (True if badWine in selectRange(i) else False)
         tally.append([2**i, dead])
         if dead:
             estimate += 2**i 
