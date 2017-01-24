@@ -3,7 +3,7 @@
 import math
 import random
 
-nWine = 1000 # Change to any number of wine. (Starts to get sluggish above a couple of million)
+nWine = 1000 # Change to any number of wine bottles. (Starts to get sluggish above a couple of million)
 nMice = math.ceil(math.log(nWine, 2))
 
 badWine = random.randrange(1, nWine, 1)
