@@ -14,8 +14,9 @@ int main()
 {
     unsigned int endTime;
     unsigned int startTime = getMicrotime();
-    listDType list[8] = {4, 6, 8, 10, 12, 14, 16, 18};
-    listDType newNumber =15;
+    
+    listDType list[8] = {4, 6, 8, 10, 12, 14, 16, 18}; // << EXAMPLE LIST
+    listDType newNumber =15;    // << EXAMPLE NEW NUMBER
     
     
     printf("New number: %d\nOld list: ", newNumber);
@@ -26,7 +27,13 @@ int main()
         printf("%d, ", list[i]);
     }
     
-    // If newNumber is less than median, start at beginning and cascade towards end.
+    /*
+                ----------------------------------------
+                !!!!!!!! START OF RELEVANT CODE !!!!!!!!
+                ----------------------------------------
+    */
+    
+    // If newNumber is less than median, start at beginning.
     if ( newNumber < list[sizeof(list)/sizeof(list[0])/2] ){
         printf("\nLess than median");
         for ( sortDType i = 0; i < nVarInList; i++ ){
@@ -47,7 +54,7 @@ int main()
             }
         }
     }
-    // Else, start at end and cascade towards beginning.
+    // Else, start at end and cascade.
     else {
         printf("\nGreater than median");
         for ( sortDType i = nVarInList-1; i > 0; i-- ){
@@ -69,6 +76,12 @@ int main()
         
     }
     
+    
+    /*
+                --------------------------------------
+                !!!!!!!! END OF RELEVANT CODE !!!!!!!!
+                --------------------------------------
+    */
     
     printf("\nNew list: ");
     
