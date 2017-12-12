@@ -24,7 +24,7 @@ int main()
             printf("\nIs %d greater than %d? ", list[i], newNumber);
             if ( list[i] > newNumber ){
                 printf("YES!", i);
-                //memmove(&items[k+1], &items[k], (numItems-k-1)*sizeof(double)); //LOOK UP THIS FOR PROBABLE INCREASE IN EFFICIENCY
+                //memmove(&items[k+1], &items[k], (numItems-k-1)*sizeof(double)); //LOOK UP THIS FOR POSSIBLE INCREASE IN EFFICIENCY
                 
                 //Insert newNumber, and shift list towards end.
                 for ( sortDType n = nVarInList; n > i; n-- ){
@@ -45,7 +45,6 @@ int main()
             printf("\nIs %d less than %d? ", list[i], newNumber);
             if ( list[i] < newNumber ){
                 printf("YES!", i);
-                //memmove(&items[k+1], &items[k], (numItems-k-1)*sizeof(double)); //LOOK UP THIS FOR POROBABLE INCREASE IN EFFICIENCY
                 
                 //Insert newNumber, and shift list towards beginning.
                 for ( sortDType n = 0; n < i; n++ ){
@@ -63,8 +62,6 @@ int main()
     
     
     printf("\nNew list: ");
-    
-    nVarInList = sizeof(list)/sizeof(list[0]);
     
     for ( sortDType i = 0; i < nVarInList; i++ ){
         printf("%d, ", list[i]);
