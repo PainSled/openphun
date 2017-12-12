@@ -1,10 +1,19 @@
 #include <stdio.h>
+#include <sys/time.h>
 
 #define listDType unsigned short
 #define sortDType unsigned char
 
+unsigned long getMicrotime(){
+	struct timeval currentTime;
+	gettimeofday(&currentTime, NULL);
+	return currentTime.tv_sec * (unsigned int)1e6 + currentTime.tv_usec;
+}
+
 int main()
 {
+    unsigned int endTime;
+    unsigned int startTime = getMicrotime();
     listDType list[8] = {4, 6, 8, 10, 12, 14, 16, 18};
     listDType newNumber =15;
     
@@ -67,9 +76,14 @@ int main()
         printf("%d, ", list[i]);
     }
     
+    
+    endTime = getMicrotime();
+    printf("\n\nMicroseconds elapsed: %d\n", endTime-startTime);
+    
     printf("\n\n%d\n", sizeof(list[0]));
     printf("%d\n", sizeof(list));
     printf("%d\n", nVarInList);
+    printf("%d\n", getMicrotime());
 
     return 0;
 }
