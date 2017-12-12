@@ -5,8 +5,8 @@
 
 int main()
 {
-    listDType list[4] = {4, 6, 8, 10};
-    listDType newNumber = 9;
+    listDType list[8] = {4, 6, 8, 10, 12, 14, 16, 18};
+    listDType newNumber =15;
     
     
     printf("New number: %d\nOld list: ", newNumber);
@@ -19,12 +19,12 @@ int main()
     
     // If newNumber is less than median, start at beginning and cascade towards end.
     if ( newNumber < list[sizeof(list)/sizeof(list[0])/2] ){
-        printf("\nBob's your uncle");
+        printf("\nLess than median");
         for ( sortDType i = 0; i < nVarInList; i++ ){
             printf("\nIs %d greater than %d? ", list[i], newNumber);
             if ( list[i] > newNumber ){
                 printf("YES!", i);
-                //memmove(&items[k+1], &items[k], (numItems-k-1)*sizeof(double)); //LOOK UP THIS FOR POROBABLE INCREASE IN EFFICIENCY
+                //memmove(&items[k+1], &items[k], (numItems-k-1)*sizeof(double)); //LOOK UP THIS FOR PROBABLE INCREASE IN EFFICIENCY
                 
                 //Insert newNumber, and shift list towards end.
                 for ( sortDType n = nVarInList; n > i; n-- ){
@@ -40,14 +40,14 @@ int main()
     }
     // Else, start at end and cascade towards beginning.
     else {
-        printf("\nBob's your auntie");
+        printf("\nGreater than median");
         for ( sortDType i = nVarInList-1; i > 0; i-- ){
             printf("\nIs %d less than %d? ", list[i], newNumber);
             if ( list[i] < newNumber ){
                 printf("YES!", i);
                 //memmove(&items[k+1], &items[k], (numItems-k-1)*sizeof(double)); //LOOK UP THIS FOR POROBABLE INCREASE IN EFFICIENCY
                 
-                //Insert newNumber, and shift list towards end.
+                //Insert newNumber, and shift list towards beginning.
                 for ( sortDType n = 0; n < i; n++ ){
                     list[n] = list[n+1];
                 }
