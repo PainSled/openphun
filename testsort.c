@@ -13,10 +13,16 @@ unsigned long getMicrotime(){
 int main()
 {
     unsigned int endTime;
-    unsigned int startTime = getMicrotime();
+    unsigned int startTime;
     
-    listDType list[8] = {4, 6, 8, 10, 12, 14, 16, 18}; // << EXAMPLE LIST
-    listDType newNumber =15;    // << EXAMPLE NEW NUMBER
+    sortDType listSize = 8;
+    listDType list[listSize];
+    
+    listDType newNumber = 7;    // << EXAMPLE NEW NUMBER
+    
+    for ( sortDType i = 0; i < listSize; i++ ){
+        list[i] = i*2;
+    }
     
     
     printf("New number: %d\nOld list: ", newNumber);
@@ -27,10 +33,13 @@ int main()
         printf("%d, ", list[i]);
     }
     
+    startTime = getMicrotime();
     /*
-                ----------------------------------------
-                !!!!!!!! START OF RELEVANT CODE !!!!!!!!
-                ----------------------------------------
+                -------------------------------------------
+                !         START OF RELEVANT CODE          !
+                !    Weak preference to push right,       !
+                ! as noise in data is preferencially high !
+                -------------------------------------------
     */
     
     // If newNumber is less than median, start at beginning.
@@ -76,12 +85,12 @@ int main()
         
     }
     
-    
     /*
                 --------------------------------------
                 !!!!!!!! END OF RELEVANT CODE !!!!!!!!
                 --------------------------------------
     */
+    endTime = getMicrotime();
     
     printf("\nNew list: ");
     
@@ -90,7 +99,6 @@ int main()
     }
     
     
-    endTime = getMicrotime();
     printf("\n\nMicroseconds elapsed: %d\n", endTime-startTime);
     
     printf("\n\n%d\n", sizeof(list[0]));
