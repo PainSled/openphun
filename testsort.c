@@ -31,7 +31,7 @@ void rollOver( listDType newNumber ){
             if ( list[i] > newNumber ){
                 
                 //Insert newNumber, and shift list towards end.
-                for ( sortDType n = listSize-i-1; n > i; n-- ){
+                for ( sortDType n = listSize-1; n > i; n-- ){
                     list[n] = list[n-1];
                 }
                 list[i] = newNumber;
@@ -85,7 +85,7 @@ int main()
     printf("\n\nnElmInList: %d\n\n", nElmInList);
     
     printf("\nOld list: ");
-    for ( sortDType i = 0; i < nElmInList; i++ ){
+    for ( sortDType i = 0; i < listSize; i++ ){
         printf("%d, ", list[i]);
     }
     printf("\n\nnElmInList: %d\n\n", nElmInList);
@@ -104,7 +104,7 @@ int main()
         rollOver( input[i] );
         if ( 1 ){
         printf("\nNew number: %d List: ", input[i]);
-            for ( sortDType i = 0; i < nElmInList; i++ ){
+            for ( sortDType i = 0; i < listSize; i++ ){
                 printf("%d, ", list[i]);
         }
     }
@@ -117,7 +117,7 @@ int main()
     printf("\nnElmInList: %d\n", nElmInList);
     
     printf("\nNew list: ");
-    for ( sortDType i = 0; i < nElmInList; i++ ){
+    for ( sortDType i = 0; i < listSize; i++ ){
         printf("%d, ", list[i]);
     }
     
