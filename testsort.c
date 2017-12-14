@@ -1,8 +1,14 @@
 #include <stdio.h>
 #include <sys/time.h>
+#include <stdlib.h>
 
 #define listDType unsigned short
 #define sortDType unsigned char
+
+#define listSize 8
+
+sortDType nElmInList;
+listDType list[listSize];
 
 unsigned long getMicrotime(){
 	struct timeval currentTime;
@@ -10,31 +16,8 @@ unsigned long getMicrotime(){
 	return currentTime.tv_sec * (unsigned int)1e6 + currentTime.tv_usec;
 }
 
-int main()
-{
-    unsigned int endTime;
-    unsigned int startTime;
-    
-    sortDType listSize = 8;
-    listDType list[listSize];
-    
-    listDType newNumber = 7;    // << EXAMPLE NEW NUMBER
-    
-    for ( sortDType i = 0; i < listSize; i++ ){
-        list[i] = i*2;
-    }
-    
-    
-    printf("New number: %d\nOld list: ", newNumber);
-    
-    sortDType nVarInList = sizeof(list)/sizeof(list[0]);
-    
-    for ( sortDType i = 0; i < nVarInList; i++ ){
-        printf("%d, ", list[i]);
-    }
-    
-    startTime = getMicrotime();
-    /*
+void rollOver( listDType newNumber ){
+     /*
                 -------------------------------------------
                 !         START OF RELEVANT CODE          !
                 !    Weak preference to push right,       !
@@ -44,32 +27,23 @@ int main()
     
     // If newNumber is less than median, start at beginning.
     if ( newNumber < list[sizeof(list)/sizeof(list[0])/2] ){
-        printf("\nLess than median");
-        for ( sortDType i = 0; i < nVarInList; i++ ){
-            printf("\nIs %d greater than %d? ", list[i], newNumber);
+        for ( sortDType i = 0; i < listSize; i++ ){
             if ( list[i] > newNumber ){
-                printf("YES!", i);
-                //memmove(&items[k+1], &items[k], (numItems-k-1)*sizeof(double)); //LOOK UP THIS FOR POSSIBLE INCREASE IN EFFICIENCY
                 
                 //Insert newNumber, and shift list towards end.
-                for ( sortDType n = nVarInList; n > i; n-- ){
+                for ( sortDType n = listSize-i-1; n > i; n-- ){
                     list[n] = list[n-1];
                 }
                 list[i] = newNumber;
                 
                 break;
-            } else{
-                printf("NO!", i);
             }
         }
     }
     // Else, start at end and cascade.
     else {
-        printf("\nGreater than median");
-        for ( sortDType i = nVarInList-1; i > 0; i-- ){
-            printf("\nIs %d less than %d? ", list[i], newNumber);
+        for ( sortDType i = listSize-1; i > 0; i-- ){
             if ( list[i] < newNumber ){
-                printf("YES!", i);
                 
                 //Insert newNumber, and shift list towards beginning.
                 for ( sortDType n = 0; n < i; n++ ){
@@ -78,11 +52,8 @@ int main()
                 list[i] = newNumber;
                 
                 break;
-            } else{
-                printf("NO!", i);
             }
         }
-        
     }
     
     /*
@@ -90,21 +61,71 @@ int main()
                 !!!!!!!! END OF RELEVANT CODE !!!!!!!!
                 --------------------------------------
     */
+}
+
+int main()
+{
+    unsigned int endTime;
+    unsigned int startTime;
+    
+    listDType input[listSize*2];
+    
+    
+    for ( sortDType i = 0; i < listSize; i++ ){
+        list[i] = 0;
+    }
+    
+    srand((unsigned int)getMicrotime());
+    
+    for ( sortDType i = 0; i < listSize*2; i++ ){
+        input[i] = 10 + rand() % 89;
+    }
+    
+    nElmInList = sizeof(list)/sizeof(list[0]);
+    printf("\n\nnElmInList: %d\n\n", nElmInList);
+    
+    printf("\nOld list: ");
+    for ( sortDType i = 0; i < nElmInList; i++ ){
+        printf("%d, ", list[i]);
+    }
+    printf("\n\nnElmInList: %d\n\n", nElmInList);
+    
+    printf("\n\nSize of list element: %d\n", sizeof(list[0]));
+    printf(    "Size of list:         %d\n", sizeof(list));
+    printf(    "Elements in list:     %d\n", nElmInList);
+    
+    printf("\n\nnElmInList: %d\n\n", nElmInList);
+    
+    
+    
+    startTime = getMicrotime();
+    
+    for ( sortDType i = 0; i < listSize*2; i++ ){
+        rollOver( input[i] );
+        if ( 1 ){
+        printf("\nNew number: %d List: ", input[i]);
+            for ( sortDType i = 0; i < nElmInList; i++ ){
+                printf("%d, ", list[i]);
+        }
+    }
+    
+    }
     endTime = getMicrotime();
     
-    printf("\nNew list: ");
+    printf("\n\nnElmInList: %d\n", nElmInList);
+    nElmInList = sizeof(list)/sizeof(list[0]);
+    printf("\nnElmInList: %d\n", nElmInList);
     
-    for ( sortDType i = 0; i < nVarInList; i++ ){
+    printf("\nNew list: ");
+    for ( sortDType i = 0; i < nElmInList; i++ ){
         printf("%d, ", list[i]);
     }
     
+    printf("\n\nSize of list element: %d\n", sizeof(list[0]));
+    printf(    "Size of list:         %d\n", sizeof(list));
+    printf(    "Elements in list:     %d\n", nElmInList);
     
     printf("\n\nMicroseconds elapsed: %d\n", endTime-startTime);
-    
-    printf("\n\n%d\n", sizeof(list[0]));
-    printf("%d\n", sizeof(list));
-    printf("%d\n", nVarInList);
-    printf("%d\n", getMicrotime());
 
     return 0;
 }
